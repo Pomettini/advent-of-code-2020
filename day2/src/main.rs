@@ -5,7 +5,7 @@ use regex::Regex;
 use std::any::TypeId;
 
 #[macro_export]
-macro_rules! lazy_capture_name {
+macro_rules! lazy_capture {
     ($capture:expr, $name:expr, $type:ty) => {
         $capture
             .name($name)
@@ -36,10 +36,10 @@ impl Password {
         let capture = re.captures(password).expect("Invalid regex");
 
         Self {
-            min: lazy_capture_name!(capture, "min", usize),
-            max: lazy_capture_name!(capture, "max", usize),
-            letter: lazy_capture_name!(capture, "letter", char),
-            buffer: lazy_capture_name!(capture, "password", String)
+            min: lazy_capture!(capture, "min", usize),
+            max: lazy_capture!(capture, "max", usize),
+            letter: lazy_capture!(capture, "letter", char),
+            buffer: lazy_capture!(capture, "password", String)
         }
     }
 }
