@@ -22,8 +22,7 @@ lazy_static! {
             .expect("Invalid regex");
 }
 
-struct Password 
-{
+struct Password {
     min: usize,
     max: usize,
     letter: char,
@@ -31,15 +30,14 @@ struct Password
 }
 
 impl Password {
-    fn new(re: &Regex, password: &str) -> Self
-    {
+    fn new(re: &Regex, password: &str) -> Self {
         let capture = re.captures(password).expect("Invalid regex");
 
         Self {
             min: lazy_capture!(capture, "min", usize),
             max: lazy_capture!(capture, "max", usize),
             letter: lazy_capture!(capture, "letter", char),
-            buffer: lazy_capture!(capture, "password", String)
+            buffer: lazy_capture!(capture, "password", String),
         }
     }
 }
@@ -68,11 +66,18 @@ fn main() {
     for line in &lines {
         let password = Password::new(&RE, line);
 
-        let first_letter = password.buffer.chars().nth(password.min - 1).expect("Index is out of bounds");
-        let second_letter = password.buffer.chars().nth(password.max - 1).expect("Index is out of bounds");
+        let first_letter = password
+            .buffer
+            .chars()
+            .nth(password.min - 1)
+            .expect("Index is out of bounds");
+        let second_letter = password
+            .buffer
+            .chars()
+            .nth(password.max - 1)
+            .expect("Index is out of bounds");
 
-        if (first_letter == password.letter) ^ (second_letter == password.letter)
-        {
+        if (first_letter == password.letter) ^ (second_letter == password.letter) {
             total_occurrences += 1;
         }
     }
