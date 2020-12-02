@@ -16,30 +16,47 @@ macro_rules! lazy_capture_name {
     };
 }
 
-fn main() {
-    lazy_static! {
-        static ref RE: Regex =
-            Regex::new(r"(?P<min>[0-9]+)-(?P<max>[0-9]+)\s(?P<letter>[a-z]):\s(?P<password>.*)")
-                .expect("Invalid regex");
-    }
+lazy_static! {
+    static ref RE: Regex =
+        Regex::new(r"(?P<min>[0-9]+)-(?P<max>[0-9]+)\s(?P<letter>[a-z]):\s(?P<password>.*)")
+            .expect("Invalid regex");
+}
 
+struct Password 
+{
+    min: usize,
+    max: usize,
+    letter: char,
+    buffer: String,
+}
+
+impl Password {
+    fn new(re: &Regex, password: &str) -> Self
+    {
+        let capture = re.captures(password).expect("Invalid regex");
+
+        Self {
+            min: lazy_capture_name!(capture, "min", usize),
+            max: lazy_capture_name!(capture, "max", usize),
+            letter: lazy_capture_name!(capture, "letter", char),
+            buffer: lazy_capture_name!(capture, "password", String)
+        }
+    }
+}
+
+fn main() {
     let input = include_str!("input.txt");
 
-    let passwords: Vec<&str> = input.lines().collect();
+    let lines: Vec<&str> = input.lines().collect();
 
     let mut total_occurrences = 0;
 
-    for password in &passwords {
-        let capture = RE.captures(password).unwrap();
+    for line in &lines {
+        let password = Password::new(&RE, line);
 
-        let min = lazy_capture_name!(capture, "min", usize);
-        let max = lazy_capture_name!(capture, "max", usize);
-        let letter = lazy_capture_name!(capture, "letter", char);
-        let password = lazy_capture_name!(capture, "password", String);
+        let occurrences = password.buffer.matches(password.letter).count();
 
-        let occurrences = password.matches(letter).count();
-
-        if occurrences >= min && occurrences <= max {
+        if occurrences >= password.min && occurrences <= password.max {
             total_occurrences += 1;
         }
     }
@@ -48,18 +65,13 @@ fn main() {
 
     total_occurrences = 0;
 
-    for password in &passwords {
-        let capture = RE.captures(password).expect(&format!("Invalid capture for {}", password));
+    for line in &lines {
+        let password = Password::new(&RE, line);
 
-        let min = lazy_capture_name!(capture, "min", usize);
-        let max = lazy_capture_name!(capture, "max", usize);
-        let letter = lazy_capture_name!(capture, "letter", char);
-        let password: String = lazy_capture_name!(capture, "password", String);
+        let first_letter = password.buffer.chars().nth(password.min - 1).expect("Index is out of bounds");
+        let second_letter = password.buffer.chars().nth(password.max - 1).expect("Index is out of bounds");
 
-        let first_letter = password.chars().nth(min - 1).expect("Index is out of bounds");
-        let second_letter = password.chars().nth(max - 1).expect("Index is out of bounds");
-
-        if (first_letter == letter) ^ (second_letter == letter)
+        if (first_letter == password.letter) ^ (second_letter == password.letter)
         {
             total_occurrences += 1;
         }
