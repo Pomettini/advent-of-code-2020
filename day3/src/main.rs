@@ -28,8 +28,8 @@ fn main() {
 
     let mut count = 0;
 
-    for i in 0..lines.len() {
-        if is_tree(map_width, &lines, i, (3, 1)).is_some() {
+    for line in 0..lines.len() {
+        if is_tree(map_width, &lines, line, (3, 1)).is_some() {
             count += 1;
         }
     }
@@ -40,10 +40,10 @@ fn main() {
 
     let mut total_count: [usize; 5] = [0; 5];
 
-    for slope in 0..slopes.len() {
+    for slope_type in 0..slopes.len() {
         for line in 0..lines.len() {
-            if is_tree(map_width, &lines, line, slopes[slope]).is_some() {
-                total_count[slope] += 1;
+            if is_tree(map_width, &lines, line, slopes[slope_type]).is_some() {
+                total_count[slope_type] += 1;
             }
         }
     }
