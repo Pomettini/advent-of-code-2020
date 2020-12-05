@@ -50,7 +50,7 @@ fn main() {
         results.iter().max().unwrap()
     );
 
-    results.sort();
+    results.sort_unstable();
 
     let result = results
         .iter()
