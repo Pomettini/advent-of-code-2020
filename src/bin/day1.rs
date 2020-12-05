@@ -1,7 +1,7 @@
 use itertools::Itertools;
 
 fn main() {
-    let input = include_str!("input.txt");
+    let input = include_str!("../../inputs/day1.txt");
 
     let numbers: Vec<i64> = input
         .lines()

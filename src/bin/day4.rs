@@ -16,7 +16,7 @@ lazy_static! {
 }
 
 fn main() {
-    let input = include_str!("input.txt");
+    let input = include_str!("../../inputs/day4.txt");
 
     let lines: Vec<String> = input
         .split("\n\n")

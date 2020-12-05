@@ -1,5 +1,5 @@
 fn main() {
-    let input = include_str!("input.txt");
+    let input = include_str!("../../inputs/day5.txt");
 
     let lines: Vec<&str> = input.lines().collect();
 

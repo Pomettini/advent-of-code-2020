@@ -17,7 +17,7 @@ fn is_tree(
 }
 
 fn main() {
-    let input = include_str!("input.txt");
+    let input = include_str!("../../inputs/day3.txt");
 
     let lines: Vec<&str> = input.lines().collect();
 
