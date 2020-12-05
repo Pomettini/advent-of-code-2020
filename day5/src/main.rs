@@ -49,4 +49,16 @@ fn main() {
         "The solution for the first problem is {}",
         results.iter().max().unwrap()
     );
+
+    results.sort();
+
+    let result = results
+        .iter()
+        .enumerate()
+        .find(|(a, b)| *b + 1 != results[a + 1])
+        .unwrap()
+        .1
+        + 1;
+
+    println!("The solution for the second problem is {}", result);
 }
