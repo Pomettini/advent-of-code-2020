@@ -1,4 +1,4 @@
-#![feature(iterator_fold_self)]
+// #![feature(iterator_fold_self)]
 
 use std::collections::HashSet;
 
@@ -17,6 +17,7 @@ fn main() {
 
     println!("The solution for the first problem is {}", unique_answers);
 
+    /*
     let answers = people_group
         .into_iter()
         .fold(0, |unique_answers, person_answers| {
@@ -38,4 +39,5 @@ fn main() {
         });
 
     println!("The solution for the second problem is {}", answers);
+    */
 }
