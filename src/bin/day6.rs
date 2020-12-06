@@ -17,24 +17,23 @@ fn main() {
 
     println!("The solution for the first problem is {}", unique_answers);
 
-    let mut answers = 0;
+    let answers = chunks.into_iter().fold(0, |mut acc, chunk| {
+        let chunk_set: Vec<HashSet<char>> = chunk
+            .iter()
+            .map(|line| line.chars().collect::<HashSet<char>>())
+            .collect::<Vec<HashSet<char>>>();
 
-    for chunk in &chunks {
-        let mut t: Vec<HashSet<char>> = Vec::new();
+        let unique_set: HashSet<char> = chunk_set
+            .clone()
+            .into_iter()
+            .skip(1)
+            .fold(chunk_set.clone()[0].clone(), |acc, set| {
+                acc.intersection(&set).into_iter().cloned().collect()
+            });
 
-        for line in chunk {
-            let answer: HashSet<char> = line.chars().collect();
-            t.push(answer);
-        }
-
-        let mut temp = t.first().unwrap().clone();
-
-        for chunk in t.iter().skip(1) {
-            temp = temp.intersection(&chunk).into_iter().cloned().collect();
-        }
-
-        answers += temp.len();
-    }
+        acc += unique_set.len();
+        acc
+    });
 
     println!("The solution for the second problem is {}", answers);
 }
