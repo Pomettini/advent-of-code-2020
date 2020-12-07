@@ -36,6 +36,8 @@ fn main() {
             map
         });
 
+    // The solution below has been *widely inspired* by Chevy Ray's code because I am dumb
+
     fn can_hold(
         bags: &HashMap<String, HashMap<String, usize>>,
         bag: &HashMap<String, usize>,
@@ -46,4 +48,18 @@ fn main() {
     let result: usize = bags.values().filter(|bag| can_hold(&bags, bag)).count();
 
     println!("The solution for the first problem is {}", result);
+
+    fn count_inner(
+        bags: &HashMap<String, HashMap<String, usize>>,
+        outer: &HashMap<String, usize>,
+    ) -> usize {
+        outer
+            .iter()
+            .map(|(inner, n)| n + n * count_inner(bags, bags.get(inner).unwrap()))
+            .sum::<usize>()
+    }
+
+    let result: usize = count_inner(&bags, bags.get("shiny gold").unwrap());
+
+    println!("The solution for the second problem is {}", result);
 }
