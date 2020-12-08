@@ -36,6 +36,8 @@ fn main() {
 
     println!("The solution for the first problem is {}", count);
 
+    assert!(count == 148);
+
     let slopes = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)];
 
     let mut total_count: [usize; 5] = [0; 5];
@@ -51,4 +53,6 @@ fn main() {
     count = total_count.iter().product();
 
     println!("The solution for the second problem is {}", count);
+
+    assert!(count == 727923200);
 }

@@ -45,14 +45,15 @@ fn main() {
         results.push(result);
     }
 
-    println!(
-        "The solution for the first problem is {}",
-        results.iter().max().unwrap()
-    );
+    let first = results.iter().max().unwrap().to_owned();
+
+    println!("The solution for the first problem is {}", first);
+
+    assert!(first == 987);
 
     results.sort_unstable();
 
-    let result = results
+    let second = results
         .iter()
         .enumerate()
         .find(|(a, b)| *b + 1 != results[a + 1])
@@ -60,5 +61,7 @@ fn main() {
         .1
         + 1;
 
-    println!("The solution for the second problem is {}", result);
+    println!("The solution for the second problem is {}", second);
+
+    assert!(second == 603);
 }

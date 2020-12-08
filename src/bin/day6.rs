@@ -17,6 +17,8 @@ fn main() {
 
     println!("The solution for the first problem is {}", unique_answers);
 
+    assert!(unique_answers == 6596);
+
     /*
     let answers = people_group
         .into_iter()
@@ -39,5 +41,7 @@ fn main() {
         });
 
     println!("The solution for the second problem is {}", answers);
+
+    assert!(answers == 3219);
     */
 }

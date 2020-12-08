@@ -34,6 +34,8 @@ fn main() {
 
     println!("The solution for the first problem is {}", matches);
 
+    assert!(matches == 204);
+
     let matches = lines
         .into_iter()
         .filter(|line| {
@@ -48,4 +50,6 @@ fn main() {
         .count();
 
     println!("The solution for the second problem is {}", matches);
+
+    assert!(matches == 179);
 }

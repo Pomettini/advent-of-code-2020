@@ -61,6 +61,8 @@ fn main() {
 
     println!("The solution for the first part is {}", total_occurrences);
 
+    assert!(total_occurrences == 622);
+
     total_occurrences = 0;
 
     for line in &lines {
@@ -83,4 +85,6 @@ fn main() {
     }
 
     println!("The solution for the second part is {}", total_occurrences);
+
+    assert!(total_occurrences == 263);
 }

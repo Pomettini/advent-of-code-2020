@@ -49,6 +49,8 @@ fn main() {
 
     println!("The solution for the first problem is {}", result);
 
+    assert!(result == 112);
+
     fn count_inner(
         bags: &HashMap<String, HashMap<String, usize>>,
         outer: &HashMap<String, usize>,
@@ -62,4 +64,6 @@ fn main() {
     let result: usize = count_inner(&bags, bags.get("shiny gold").unwrap());
 
     println!("The solution for the second problem is {}", result);
+
+    assert!(result == 6260);
 }

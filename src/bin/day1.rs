@@ -3,30 +3,29 @@ use itertools::Itertools;
 fn main() {
     let input = include_str!("../../inputs/day1.txt");
 
-    let numbers: Vec<i64> = input
-        .lines()
-        .map(|line| {
-            line.parse()
-                .expect("A line in the input file is not a valid number")
-        })
-        .collect();
+    let numbers: Vec<u32> = input.lines().map(|line| line.parse().unwrap()).collect();
 
-    let first = numbers
+    let first: u32 = numbers
         .iter()
-        .tuple_combinations()
-        .find(|&(a, b)| a + b == 2020)
-        .expect("Cannot find a combination of two numbers that return 2020");
+        .combinations(2)
+        .find(|v| v[0] + v[1] == 2020)
+        .unwrap()
+        .into_iter()
+        .product();
 
-    let second = numbers
+    println!("The solution for the first part is {0}", first);
+
+    assert!(first == 1007331);
+
+    let second: u32 = numbers
         .iter()
-        .tuple_combinations()
-        .find(|&(a, b, c)| a + b + c == 2020)
-        .expect("Cannot find a combination of three numbers that return 2020");
+        .combinations(3)
+        .find(|v| v[0] + v[1] + v[2] == 2020)
+        .unwrap()
+        .into_iter()
+        .product();
 
-    println!("The solution for the first part is {0}", first.0 * first.1);
+    println!("The solution for the second part is {0}", second);
 
-    println!(
-        "The solution for the second part is {0}",
-        second.0 * second.1 * second.2
-    );
+    assert!(second == 48914340);
 }
