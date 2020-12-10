@@ -31,15 +31,15 @@ fn main() {
 
     assert!(first.1 == 90433990);
 
-    fn find_in_range(list: &Vec<usize>, start: usize, end: usize, item: usize) -> Option<usize> {
+    fn find_in_range(list: &[usize], start: usize, end: usize, item: usize) -> Option<usize> {
         let range: Vec<usize> = list
-            .into_iter()
+            .iter()
             .skip(start)
             .take(end)
             .map(|l| l.to_owned())
             .collect();
 
-        if &range.iter().sum::<usize>() == &item {
+        if range.iter().sum::<usize>() == item {
             Some(*range.iter().min()? + *range.iter().max()?)
         } else {
             None
