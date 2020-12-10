@@ -31,17 +31,27 @@ fn main() {
 
     assert!(first.1 == 90433990);
 
+    fn find_in_range(list: &Vec<usize>, start: usize, end: usize, item: usize) -> Option<usize> {
+        let range: Vec<usize> = list
+            .into_iter()
+            .skip(start)
+            .take(end)
+            .map(|l| l.to_owned())
+            .collect();
+
+        if &range.iter().sum::<usize>() == &item {
+            Some(*range.iter().min()? + *range.iter().max()?)
+        } else {
+            None
+        }
+    }
+
     let second: usize = (0..first.0)
         .into_iter()
         .find_map(|skip| {
-            (0..100).into_iter().find_map(|take| {
-                let range: Vec<usize> = lines.clone().into_iter().skip(skip).take(take).collect();
-                if range.clone().into_iter().sum::<usize>() == first.1 {
-                    Some(range.iter().min().unwrap() + range.iter().max().unwrap())
-                } else {
-                    None
-                }
-            })
+            (0..25)
+                .into_iter()
+                .find_map(|take| find_in_range(&lines, skip, take, first.1))
         })
         .unwrap();
 
