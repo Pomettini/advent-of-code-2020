@@ -31,13 +31,8 @@ fn main() {
 
     assert!(first.1 == 90433990);
 
-    fn find_in_range(list: &[usize], start: usize, end: usize, item: usize) -> Option<usize> {
-        let range: Vec<usize> = list
-            .iter()
-            .skip(start)
-            .take(end)
-            .map(|l| l.to_owned())
-            .collect();
+    fn find_in_range(list: Vec<usize>, start: usize, end: usize, item: usize) -> Option<usize> {
+        let range: Vec<usize> = list.into_iter().skip(start).take(end).collect();
 
         if range.iter().sum::<usize>() == item {
             Some(*range.iter().min()? + *range.iter().max()?)
@@ -51,7 +46,7 @@ fn main() {
         .find_map(|skip| {
             (0..25)
                 .into_iter()
-                .find_map(|take| find_in_range(&lines, skip, take, first.1))
+                .find_map(|take| find_in_range(lines.clone(), skip, take, first.1))
         })
         .unwrap();
 
