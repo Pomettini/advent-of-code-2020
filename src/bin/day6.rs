@@ -1,5 +1,3 @@
-// #![feature(iterator_fold_self)]
-
 use std::collections::HashSet;
 
 fn main() {
@@ -19,7 +17,6 @@ fn main() {
 
     assert!(unique_answers == 6596);
 
-    /*
     let answers = people_group
         .into_iter()
         .fold(0, |unique_answers, person_answers| {
@@ -29,7 +26,7 @@ fn main() {
                     .map(|line| line.chars().collect::<HashSet<char>>())
                     .collect::<Vec<HashSet<char>>>()
                     .into_iter()
-                    .fold_first(|unique_set_elements, unique_set| {
+                    .reduce(|unique_set_elements, unique_set| {
                         unique_set_elements
                             .intersection(&unique_set)
                             .into_iter()
@@ -43,5 +40,4 @@ fn main() {
     println!("The solution for the second problem is {}", answers);
 
     assert!(answers == 3219);
-    */
 }

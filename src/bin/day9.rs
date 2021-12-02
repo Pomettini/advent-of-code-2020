@@ -6,9 +6,9 @@ fn main() {
     let mut preamble_list: Vec<usize> = lines.iter().take(25).map(|l| l.to_owned()).collect();
 
     fn is_not_preamble(list: &[usize], number: usize) -> bool {
-        list.iter()
-            .find(|&&a| list.iter().any(|&b| a != b && a + b == number))
-            .is_none()
+        !list
+            .iter()
+            .any(|&a| list.iter().any(|&b| a != b && a + b == number))
     }
 
     let first: (usize, usize) = input

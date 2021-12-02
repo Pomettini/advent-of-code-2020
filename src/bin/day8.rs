@@ -55,7 +55,7 @@ fn main() {
 
     assert!(first == 1723);
 
-    let combinations: Vec<State> = (0..program.len())
+    let combinations = (0..program.len())
         .filter(|&i| program[i].0 != "acc")
         .map(|i| {
             let mut clone = program.clone();
@@ -65,8 +65,7 @@ fn main() {
                 _ => (),
             }
             run_program(&clone)
-        })
-        .collect();
+        });
 
     let second: i32 = combinations
         .into_iter()

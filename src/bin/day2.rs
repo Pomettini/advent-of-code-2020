@@ -12,7 +12,7 @@ macro_rules! lazy_capture {
             .expect(&format!("Cannot find label with name: {}", $name)[..])
             .as_str()
             .parse::<$type>()
-            .expect(&format!("Cannot cast label to type: {:?}", TypeId::of::<$type>())[..]);
+            .expect(&format!("Cannot cast label to type: {:?}", TypeId::of::<$type>())[..])
     };
 }
 
